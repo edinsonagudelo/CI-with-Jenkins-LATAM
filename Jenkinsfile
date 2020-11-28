@@ -28,5 +28,25 @@ pipeline {
        sh 'mvn test'
       }
      }
+ stage('Build and push Docker Image') {
+      steps{
+        script {
+           appimage = docker.build("gcr.io/original-brace-289402/devops:${env.BUILD_ID}")
+           docker.withRegistry('https://gcr.io','gcr:gcr'){
+              appimage.push("${env.BUILD_ID}")
+           }
+         }
+       }
+      }
+    
+     stage('Deploy to Kubernetes') {
+      steps {
+       sh 'ls -ltr'
+       sh 'pwd'
+       sh "sed -i 's/tagversion/${env.BUILD_ID}/g' deployment.yaml"
+       step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, clusterName: env.CLUSTER_NAME, location: env.LOCATION, manifestPattern: 'deployment.yaml', credentialsId: env.CREDENTIALS_ID, verifyDeployments: true])
+       echo "Deploy practica final kubernetes cluster"
+      }
+     }
 }
 }
