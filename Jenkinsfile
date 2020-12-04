@@ -6,7 +6,7 @@ pipeline {
     PROJECT_ID = "original-brace-289402"
     CLUSTER_NAME = 'cluster-1'
     LOCATION = 'us-central1-c'
-    CREDENTIALS_ID = 'gcr'
+    CREDENTIALS_ID = '118022580335764063329'
   }   
  stages {
      stage('Checkout SCM') {
