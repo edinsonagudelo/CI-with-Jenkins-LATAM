@@ -31,7 +31,7 @@ pipeline {
  stage('Build and push Docker Image') {
       steps{
         script {
-           appimage = docker.build("gcr.io/original-brace-289402/devops:/var/lib/jenkins/workspace/pipeline_Jenkinsfile")
+           appimage = docker.build("gcr.io/original-brace-289402/devops:10 /var/lib/jenkins/workspace/pipeline_Jenkinsfile")
            docker.withRegistry('https://gcr.io','gcr:gcr'){
               appimage.push("/var/lib/jenkins/workspace/pipeline_Jenkinsfile")
            }
