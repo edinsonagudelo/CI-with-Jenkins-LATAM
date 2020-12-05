@@ -15,7 +15,7 @@ spec:
   spec:
    containers:
     - name: devops
-      image: eudreyagudelo/devops:tagversion
+      image: gcr.io/original-brace-289402/devops:tagversion
       ports:
       - containerPort: 8080
 ---
