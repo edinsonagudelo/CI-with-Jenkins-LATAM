@@ -32,9 +32,8 @@ pipeline {
       steps{
         script {
            appimage = docker.build("gcr.io/original-brace-289402/devops:${env.BUILD_ID}")
-           {
-              appimage.push("${env.BUILD_ID}")
-           }
+           appimage.push("${env.BUILD_ID}")
+           
          }
        }
       }
