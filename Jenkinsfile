@@ -32,7 +32,7 @@ pipeline {
       steps{
         script {
            appimage = docker.build("gcr.io/original-brace-289402/devops:${env.BUILD_ID}")
-           docker.withRegistry('https://gcr.io', 'gcr:google-container-registry'){
+           docker.withRegistry('https://eu.gcr.io', 'gcr:MyProject')   {
            appimage.push("${env.BUILD_ID}")
            }     
          }
