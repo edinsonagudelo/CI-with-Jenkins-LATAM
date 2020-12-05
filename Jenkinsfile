@@ -31,9 +31,10 @@ pipeline {
  stage('Build and push Docker Image') {
       steps{
         script {
-           appimage = docker.build("eudreyagudelo/devops:${env.BUILD_ID}")
-           docker.withRegistry('https://registry.hub.docker.com', 'dockerhub')   {
+           appimage = docker.build("gcr.io/original-brace-289402/devops:${env.BUILD_ID}")
+           docker.withRegistry('https://eu.gcr.io', 'gcr:MyProject')   {
            appimage.push("${env.BUILD_ID}")
+
            }     
          }
        }
