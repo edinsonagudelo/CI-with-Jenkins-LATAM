@@ -6,7 +6,7 @@ pipeline {
     PROJECT_ID = "original-brace-289402"
     CLUSTER_NAME = 'cluster-1'
     LOCATION = 'us-central1-c'
-    CREDENTIALS_ID = 'MyProject'
+    CREDENTIALS_ID = 'cluster-1'
   }   
  stages {
      stage('Checkout SCM') {
@@ -32,7 +32,7 @@ pipeline {
       steps{
         script {
            appimage = docker.build("gcr.io/original-brace-289402/devops:${env.BUILD_ID}")
-           docker.withRegistry('https://gcr.io', 'gcr:MyProject')   {
+           docker.withRegistry('https://gcr.io', 'gcr:cluster-1')   {
            appimage.push("${env.BUILD_ID}")
 
            }     
