@@ -15,19 +15,21 @@ spec:
   spec:
    containers:
     - name: devops
-      image: gcr.io/original-brace-289402/devops:tagversion
+      image: eudreyagudelo/devops:latest
+      imagePullPolicy: Always
       ports:
-      - containerPort: 8080
+      - containerPort: 5000
+        name: devops
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: devops
+name: devops
 spec:
-  type: LoadBalancer 
-  selector:
-   app: devops
-  ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 8080
+ports:
+  - port: 5000
+    targetPort: 5000
+selector:
+  app: devops
+  tier: devops
+type: LoadBalancer
