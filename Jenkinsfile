@@ -31,9 +31,10 @@ pipeline {
  stage('Build and push Docker Image') {
       steps{
         script {
-           appimage = docker.build("gcr.io/original-brace-289402/devops:${env.BUILD_ID}")
-           docker.withRegistry('https://gcr.io', 'gcr:cluster-1')   {
-           appimage.push("${env.BUILD_ID}")
+           appimage = docker.build("eudreyagudelo/devops:${env.BUILD_ID}")
+           docker.withRegistry('https://registry.hub.docker.com', 'dockerhub')   {
+             appimage.push("latest")
+             appimage.push("${env.BUILD_ID}")
 
            }     
          }
@@ -44,7 +45,7 @@ pipeline {
       steps {
        sh 'ls -ltr'
        sh 'pwd'
-       sh "sed -i 's/tagversion/${env.BUILD_ID}/g' deployment.yaml"
+       sh "sed -i 's/devops:latest/devops:${env.BUILD_ID}/g' deployment.yaml"
        step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, clusterName: env.CLUSTER_NAME, location: env.LOCATION, manifestPattern: 'deployment.yaml', credentialsId: env.CREDENTIALS_ID, verifyDeployments: true])
        echo "Deploy practica final kubernetes cluster"
       }
